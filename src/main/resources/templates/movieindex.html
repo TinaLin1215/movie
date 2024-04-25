@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>后台管理</title>
+	<meta charset="UTF-8">
+	<link href="/css/background.css" rel="stylesheet" type="text/css">
+	<style>
+		a,a:visited,a:link{color: white;text-decoration: none}
+	#update:link,#update:visited,#delete:link,#delete:visited{color: #333333}
+	a:hover{color: orangered !important}
+	</style>
+</head>
+
+
+<body>
+<center>
+<div id="top" th:insert="admintop.html"/>
+
+
+<!--	<form method="post" action="/admin/movieindex">-->
+<table style="color:#333333;text-align:center;cellpadding:0;cellspacing:0;width: 1000px;" >
+			<tr height="30px">
+				<th width="50px" bgcolor="#d8d8d8">编号</th>
+				<th width="100px" bgcolor="#d8d8d8">图片</th>
+				<th width="100px" bgcolor="#d8d8d8">名称</th>
+				<th width="200px"  bgcolor="#d8d8d8">简介</th>
+				<th width="200px" bgcolor="#d8d8d8">主演</th>
+				<th width="50px" bgcolor="#d8d8d8">总热度</th>
+				<th width="50px" bgcolor="#d8d8d8">好评度</th>
+				<th width="50px" bgcolor="#d8d8d8">周热度</th>
+				<th width="50px" bgcolor="#d8d8d8">月热度</th>
+				<th width="50px" bgcolor="#d8d8d8">销量</th>
+				<th width="50px" bgcolor="#d8d8d8">操作</th>
+			</tr>
+	<!--th: each开始 -->
+			<div th:each="movie,stat:${movies}" >
+			<tr  valign="middle">
+				<td  valign="middle" bgcolor="#FFFFFF" th:text="${movie.id}"></td>
+				<td  align="center" valign="middle" bgcolor="#FFFFFF">
+					<a th:href="@{/movie(id=${movie.id})}">
+						<img th:src="@{'/picture/'+${movie.picture}}" width="100" height="140">
+					</a>
+				</td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.name}"></td>
+				<td height="162px" valign="middle" bgcolor="#FFFFFF" style="text-align:justify;overflow: hidden;
+				width: 200px;text-overflow:ellipsis; display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 8;" th:text="${movie.detail}" ></td>
+
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.actor}"></td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.hotrank}"></td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.goodrank}"></td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.weekrank}"></td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.monthrank}"></td>
+				<td valign="middle" bgcolor="#FFFFFF" th:text="${movie.clickrate}"></td>
+				<td valign="middle"  align="center"  bgcolor="#FFFFFF">
+				<a id="update" th:href="@{/admin/movieUpdate(id=${movie.id})}">修改</a>
+				<a id="delete" th:href="'/admin/movieDelete?id='+${movie.id}" >删除</a>
+				</td>
+			</tr>
+			</div><!--th: each结束 -->
+			</table>
+
+
+	<!--分页超链接 -->
+	<div style="clear: both"></div>
+	<div style="clear: both">
+		<br/><br/>
+		<span><a  class="page" th:href="@{/admin/movieIndex(pageNo=1)}">首页</a></span>&nbsp;&nbsp;
+		<span th:switch="${currentPage}">
+					<a class="page"  th:case="1" th:href="@{/admin/movieIndex(pageNo=${currentPage})}" >上一页</a>
+					<a class="page"  th:case="*" th:href="@{/admin/movieIndex(pageNo=${currentPage - 1})}" >上一页</a>&nbsp;&nbsp;
+				</span>
+
+		<span th:if="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/admin/movieIndex(pageNo=${pageCount})}" >下一页</a>&nbsp;&nbsp;
+			</span>
+		<span class="page"  th:unless="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/admin/movieIndex(pageNo=${currentPage + 1})}" >下一页&nbsp;&nbsp;</a>
+			</span>
+		<span><a class="page"  th:href="@{/admin/movieIndex(pageNo=${pageCount})}" >尾页</a></span>
+		<br/><br/>
+	</div>
+	<div style="height:50px"></div>
+<!--	</form>-->
+</center></body>

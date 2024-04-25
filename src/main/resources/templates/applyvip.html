@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>开通会员</title>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      height: 100vh;
+      background-color: #2A2730;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width:800px;
+
+      margin: auto;
+    }
+
+    h1 {
+      color: #3c8842;
+    }
+
+    p {
+      margin: 10px 0;
+      color: #2A2730;
+    }
+
+    #username {
+      font-weight: bold;
+      color: #3c8842;
+    }
+
+    .membership-options ,.payment-options {
+      margin-top: 20px;
+      border-top: 2px solid #2A2730;
+      padding-top: 20px;
+    }
+
+    .membership-options h2,.payment-options h2 {
+      color: #3c8842;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .membership-options label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #2A2730;
+    }
+    .payment-options label {
+      width: 100px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #2A2730;
+    }
+
+
+
+  </style>
+</head>
+<body>
+<div id="top" th:insert="top.html"></div>
+<div class="container">
+
+<!--  <h1>会员开通</h1>-->
+  <p th:if="${session.viewerLogin}"><span style="color:#2A2730;" th:text="'亲爱的'+${session.viewerLogin.getNickname()}+'，欢迎开通企鹅影视网会员!'" /></p>
+
+<!--  <div class="notification-box" style="background-color: #ef6748; padding: 10px; border-radius: 5px; margin-bottom: 15px;">-->
+<!--    <p style="color: white;">微信和QQ账户不互通，请切换至微信账号进行支付。</p>-->
+<!--  </div>-->
+
+  <div class="membership-options">
+    <h2 style="color: #2A2730;">会员套餐</h2>
+<!--    <p>企鹅视频网VIP</p>-->
+    <label for="conyear">连续包年首年：¥178，0.48元/天，送喜马拉雅年卡<input type="radio" name="taocan" id="conyear" checked></label>
+    <label for="conseason">连续包季首季：¥50，0.54元/天，送网易严选月卡<input type="radio" name="taocan" id="conseason"></label>
+     <label for="twelvemonth"> 限时特惠：12个月VIP：¥198，0.53元/天，送京东会员年卡<input type="radio" name="taocan" id="twelvemonth"></label>
+    <label for="threemonth">3个月VIP：¥60，0.65元/天，送网易云音乐季卡<input type="radio" name="taocan" id="threemonth"></label>
+     <label for="onemonth">1个月VIP：¥30，0.97元/天，送高德打车券包<input type="radio" name="taocan" id="onemonth"></label>
+  </div>
+
+  <div class="payment-options">
+    <h2 style="color: #2A2730;">支付方式</h2>
+    <label for="wechat">微信支付<input type="radio" id="wechat" name="paymentMethod" checked></label>&nbsp;&nbsp;&nbsp;
+    <label for="alipay">支付宝<input type="radio" id="alipay" name="paymentMethod"></label>&nbsp;&nbsp;&nbsp;
+    <label for="bank">银行卡<input type="radio" id="bank" name="paymentMethod"></label>
+  </div>
+<!--  <p>账号：<span style="color:#2A2730;" th:text="${session.viewerLogin.getNickname()}"/></p>-->
+  <p style="margin-bottom: 20px !important;"><input type="checkbox">阅读并同意《企鹅网视频系列会员服务协议》《自动续费协议》《隐私政策》</p>
+
+  <button onClick="confirmPayment()">确认支付</button>
+</div>
+<script>
+  // Function to be executed when the "确认支付" button is clicked
+  function confirmPayment() {
+    // Display a simple popup alert
+    alert('开通会员成功!');
+
+    const username = localStorage.name
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Configure it to make a POST request to the specified URL
+    xhr.open('POST', '/user/upgradeToVIP', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Define a callback function to handle the response
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        // Check if the response is a valid JSON
+        let responseData;
+        try {
+          // responseData = JSON.parse(xhr.responseText);
+          // console.log(responseData);  // 输出后端返回的数据
+        } catch (error) {
+          console.error('Invalid JSON response:', xhr.responseText);
+          console.error('Error parsing JSON:', error);
+        }
+      } else {
+        // Handle errors or display an error message if needed
+        console.error('Error upgrading to VIP:', xhr.statusText);
+      }
+    };
+
+    // Define a callback function to handle network errors
+    xhr.onerror = function () {
+      console.error('Network error while upgrading to VIP');
+    };
+
+    // Send the POST request with the username data
+    xhr.send(JSON.stringify({ username: username }));
+  }
+
+
+</script>
+<div id="bottom" th:insert="bottom.html"/></div>
+</body>
+
+</html>

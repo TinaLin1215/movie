@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>影片展示</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="/css/prodList.css" rel="stylesheet" type="text/css">
+	<link href="/css/background.css" rel="stylesheet" type="text/css">
+	<link href="/css/showmovie.css" rel="stylesheet" type="text/css">
+	<script src="/js/jquery-1.4.2.js"></script>
+	<script>
+		var values= [];//全局数组变量
+		function getTypeValue(element) {
+			var value = element.getAttribute('value');
+			values[0]=value;
+			console.log('Value: ', value);
+			$.ajax({
+				type: 'POST',
+				url: '/index/showMovie',
+				data: {
+					type: values[0],
+					area: values[1],
+					genre: values[3]
+				}
+			});
+		}
+		function getAreaValue(element) {
+			var value = element.getAttribute('value');
+			values[0]=value;
+			console.log('Value: ', value);
+		}
+		function getGenreValue(element) {
+			var value = element.getAttribute('value');
+			values[0]=value;
+			console.log('Value: ', value);
+		}
+		function failHref(){
+			alert("本电影为会员用户专享！")
+			return;
+		}
+	</script>
+	<style type="text/css">
+		.prod_div img:hover{
+			transform: scale(1.1); /* 放大图片 */
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 添加阴影效果 */
+
+		}
+	</style>
+
+</head>
+<body>
+<center>
+	<div id="top" th:insert="top.html"/>
+	<div>
+
+	<div id="content">
+<!--		[[${session.vip}]]-->
+<!--		<div class="movie-class">-->
+<!--			<form method="post" action="/index/showMovie">-->
+
+<!--				<div class="filter-radio-wrap">-->
+<!--					<div dt-eid="choose_item"  dt-clck-ignore="true" class="item active"> 类  型 </div>-->
+<!--					<div type="submit"  class="item"  th:each="type:${types}" th:value="${type}" th:text="${type}"-->
+<!--						 onclick="getTypeValue(this)"></div>-->
+<!--				</div>-->
+
+<!--				<div class="filter-radio-wrap">-->
+<!--					<div dt-eid="choose_item"  dt-clck-ignore="true" class="item active"> 地  区 </div>-->
+<!--					<div type="submit" class="item"  th:each="area:${areas}" th:value="${area}" th:text="${area}"-->
+<!--						 onclick="getAreaValue(this)"></div>-->
+
+<!--				</div>-->
+<!--				<div class="filter-radio-wrap">-->
+<!--					<div dt-eid="choose_item"  dt-clck-ignore="true" class="item active"> 题  材 </div>-->
+<!--					<div type="submit" class="item"  th:each="genre:${genres}" th:value="${genre}" th:text="${genre}"-->
+<!--						 onclick="getGenreValue(this)"></div>-->
+<!--				</div>-->
+<!--			</form>-->
+<!--		</div>-->
+
+		<div id="movie-class">
+			<form method="post" action="/index/showMovie">
+				<span class="input_span" >类型：
+				<select name="type" th:width="100px">
+				<Option value="">全部</option>
+					<option th:each="type:${types}" th:value="${type}" th:text="${type}"></option>
+				</select>
+				</span>
+				<span class="input_span">地区：
+				<select name="area" th:width="100px">
+				<Option value="">全部</option>
+					<option th:each="area:${areas}" th:value="${area}" th:text="${area}"></option>
+				</select>
+				</span>
+				<span class="input_span">题材：
+				<select name="genre" th:width="100px">
+				<Option value="">全部</option>
+					<option th:each="genre:${genres}" th:value="${genre}" th:text="${genre}"></option>
+				</select>
+				</span>
+				<input type="submit" style="margin-left: 20px"  value="查 询">
+			</form>
+		</div>
+
+
+<!--		<div id="prod_content">-->
+<!--			<div th:each="movie:${movielist}">-->
+<!--				<div class="prod_div">-->
+<!--					<a th:if="${session.vip == 1}" th:href="'/index/moviedetail?flowerid='+${movie.id}">-->
+<!--						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>-->
+<!--						<div class="title-wrap">-->
+
+<!--							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>-->
+<!--							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>-->
+
+<!--							<div id="sub" th:text="${movie.actor}"></div>-->
+<!--						</div>-->
+<!--					</a>-->
+<!--					<a th:if="${session.vip == 0&& !movie.isvip}" onclick=th:href="'/index/moviedetail?flowerid='+${movie.id}">-->
+<!--						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>-->
+<!--						<div class="title-wrap">-->
+
+<!--							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>-->
+<!--							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>-->
+
+<!--							<div id="sub" th:text="${movie.actor}"></div>-->
+<!--						</div>-->
+<!--					</a>-->
+<!--					<a th:if="${session.vip == 0&& movie.isvip}" onclick="failHref()">-->
+<!--						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>-->
+<!--						<div class="title-wrap">-->
+
+<!--							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>-->
+<!--							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>-->
+
+<!--							<div id="sub" th:text="${movie.actor}"></div>-->
+<!--						</div>-->
+<!--					</a>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+		<div id="prod_content">
+			<div th:each="movie:${movielist}">
+				<div class="prod_div">
+					<a th:if="${session.vip == 1}" th:href="'/movie?id='+${movie.id}">
+						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+						<div class="title-wrap">
+							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+							<div id="sub" th:text="${movie.actor}"></div>
+						</div>
+					</a>
+
+					<a th:if="${session.vip == 0 && movie.isvip == 0}" th:href="'/movie?id='+${movie.id}">
+						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+						<div class="title-wrap">
+							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+							<div id="sub" th:text="${movie.actor}"></div>
+						</div>
+					</a>
+
+					<a th:if="${session.vip == 0 && movie.isvip == 1}" onclick="failHref()">
+						<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+						<div class="title-wrap">
+							<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+							<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+							<div id="sub" th:text="${movie.actor}"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<!--分页超链接 -->
+		<div style="clear: both"></div>
+		<div style="clear: both">
+			<br/><br/>
+			<span><a  class="page" th:href="@{/index/showMovie(pageNo=1,name=${name},minprice=${minprice},maxprice=${maxprice})}">首页</a></span>&nbsp;&nbsp;
+			<span th:switch="${currentPage}">
+					<a class="page"  th:case="1" th:href="@{/index/showMovie(pageNo=${currentPage},name=${name},minprice=${minprice},maxprice=${maxprice})}">上一页</a>&nbsp;&nbsp;
+					<a class="page"  th:case="*" th:href="@{/index/showMovie(pageNo=${currentPage - 1},name=${name},minprice=${minprice},maxprice=${maxprice})}">上一页</a>
+				</span>
+
+			<span th:if="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/index/showMovie(pageNo=${pageCount},name=${name},minprice=${minprice},maxprice=${maxprice})}">下一页</a>&nbsp;&nbsp;
+			</span>
+			<span class="page"  th:unless="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/index/showMovie(pageNo=${currentPage + 1},name=${name},minprice=${minprice},maxprice=${maxprice})}">下一页</a>
+			</span>
+
+			<span>&nbsp;&nbsp;<a class="page"  th:href="@{/index/showMovie(pageNo=${pageCount},name=${name},minprice=${minprice},maxprice=${maxprice})}">尾页</a></span>
+			<br/><br/>
+		</div>
+
+
+		</div>
+	</div>
+
+	<div id="bottom" th:insert="bottom.html"/></div>
+
+</center>
+</body>
+</html>

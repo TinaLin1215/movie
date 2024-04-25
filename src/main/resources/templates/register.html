@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <script src="/js/jquery-1.4.2.js"></script>
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="/js/regist_ajax.js"></script>
+</head>
+<body>
+<center>
+  <div id="top" th:insert="top.html"/>
+  <div>
+    <form>
+      <table style="width:550px; border-width:3px; border-style:dotted;">
+        <tr><td colspan="3" style="text-align:center;height:60px;">
+          <h1>注册新用户</h1></td></tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">用户名：</td>
+          <td align=left style="width:180px;"><input type=text name="username" placeholder="请输入用户名"></td>
+          <td align=left>
+            <span id="username_msg"></span></td>
+        </tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">昵称：</td>
+          <td align=left style="width:180px;"><input type=text name="nickname" placeholder="请输入昵称"></td>
+          <td align=left>
+            <span id="nickname_msg"></span></td>
+        </tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">密码：</td>
+          <td align=left style="width:180px;"><input type="password" name="passw1" placeholder="请输入密码"></td>
+          <td align=left><span id="passw1_msg"></span></td>
+        </tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">确认密码：</td>
+          <td align=left style="width:180px;"><input type=password name="passw2" placeholder="请再次输入密码"></td>
+          <td align=left><span id="passw2_msg"></span></td>
+        </tr>
+        <tr><td colspan="3" style="text-align:center;height:60px;">
+          <input type=submit name=s value="注册">
+        </td></tr>
+        <tr><td colspan="3" style="text-align:center;height:60px;">
+          <span id="form_msg"></span>
+        </td></tr>
+      </table>
+    </form>
+  </div>
+</center>
+</body>
+</html>

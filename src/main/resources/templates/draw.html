@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>绘制图表</title>
+  <meta charset="utf-8" />
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <!-- 引入 ECharts 文件 -->
+  <script src="/js/echarts.js"></script>
+</head>
+<body>
+<div id="top" th:insert="admintop.html"/>
+
+<center>
+<!-- 为 ECharts 准备一个定义了宽高的 DOM-->
+<div id="main1" style="width: 995px;height:500px;background-color: #fff;margin: 3px" ></div>
+
+<div id="main2" style="width: 995px;height:2000px;background-color: #fff;margin: 10px"></div>
+<script type="text/javascript">
+  var myChart1 = echarts.init(document.getElementById('main1'));
+
+  // 指定图表的配置项和数据--柱状
+var option1={
+    //标题
+    title: {
+      text: '电影销量图'
+    },
+    //显示
+    legend: {
+        data: ['销量']
+    },
+    //工具箱
+    toolbox: {
+      show: true,
+      orient: "vertical",
+      left: "right",
+      feature: {
+        saveAsImage: { show: true },  // 保存图表
+      },
+    },
+    //数据集
+    dataset: [
+        {
+            dimensions: ['name', 'sale'],
+            source: [
+                ['消失的她',59324], ['蝴蝶效应',39524], ['不当交易',39521],['最后的真相',26896],['鹦鹉杀',34647],
+                ['犯罪现场',42335],['假如猫从世界上消失了',22438],['惊天魔盗团2',36733], ['嫌疑人X的献身',21948],
+                ['无双',38744], ['星际穿越',24835],['头号玩家',49255],['信条',	25825],['盗梦空间',38756],
+                ['2012',13859],['阿凡达',26482],['全球风暴',35458], ['环太平洋',35372],['流浪地球',59724],
+                ['猩球崛起',58495], ['憨豆特工3',46832],['邻座的怪同学',16882],['请别相信她',19248],['可疑的顾客们',38572],
+                ['扎职2：江湖陌路',48936],['生死交锋',23843], ['机械师',22813],    ['封神第一部：朝歌风云',54627],
+                ['你的婚礼',33492],['念念相忘',34385],  ['我爱你',	44782], ['倩女幽魂',	69457],  ['霸王别姬',69374],
+                ['梁祝',21038], ['志愿军：雄兵出击',36357], ['死寂',58424], ['长津湖',	25287],  ['狙击手',	24567],
+                ['威尼斯惊魂夜',32872], ['纸新娘',28472],['僵尸参将',25853],  ['钟馗伏妖',38394], ['深宅迷案',29423]
+            ]
+        },
+        {
+            transform: {
+                type: 'sort',
+                config: {
+                    dimension: 'sale',
+                    order: 'desc'
+                }
+          }
+       }
+    ],
+    //设置x轴
+    xAxis: {
+        type: 'category',
+        axisLabel: { interval: 0, rotate: 45,fontSize:8 },
+    },
+    //设置y轴
+    yAxis: {},
+    //构成画面的元素
+    series: {
+        type: 'bar',
+        name:'销量',
+        encode: { x: 'name', y: 'sale' },
+        datasetIndex: 1
+    }
+  };
+
+  var myChart2 = echarts.init(document.getElementById('main2'));
+//饼图-按电影类型
+  var datas = [
+    [
+      { name: '扎职2：江湖陌路', value: 48936 },
+      { name: '生死交锋', value: 23843 },
+      { name: '机械师', value: 22813 },
+      { name: '封神第一部：朝歌风云', value: 54627}
+    ],
+    [
+      { name: '憨豆特工3', value: 46832 },
+      { name: '邻座的怪同学', value: 16882 },
+      { name: '请别相信她', value: 19248 },
+      { name: '可疑的顾客们', value: 38572 }
+    ],
+    [
+      { name: '死寂', value: 58424},
+      { name: '僵尸参将', value: 25853 },
+      { name: '钟馗伏妖', value: 38394 },
+      { name: '深宅迷案', value: 29423 },
+      { name: '灵异存在',value: 18365 }
+    ],
+    [
+      { name: '消失的她', value: 59324},
+      { name: '蝴蝶效应', value: 39524},
+      { name: '不当交易', value: 39521 },
+      { name: '最后的真相', value: 26896},
+      { name: '鹦鹉杀', value: 34647},
+      { name: '犯罪现场', value: 42335},
+      { name: '假如猫从世界上消失了', value: 22438},
+      { name: '惊天魔盗团2', value: 36733},
+      { name: '嫌疑人X的献身', value: 21948}
+      // ,{ name: '无双', value: 38744 }
+    ],
+    [
+      { name: '威尼斯惊魂夜', value: 32872},
+      { name: '纸新娘', value: 28472}
+    ],
+    [
+    { name: '星际穿越', value: 24835},
+    { name: '头号玩家', value: 49255},
+    { name: '信条', value: 25825},
+    { name: '盗梦空间', value: 38756},
+    { name: '2012', value: 13859},
+    { name: '阿凡达', value: 26482},
+    { name: '全球风暴', value: 35458},
+    { name: '环太平洋', value: 35372},
+    { name: '流浪地球', value: 59724}
+      // ,{ name: '猩球崛起', value: 58495}
+    ],
+    [
+      { name: '你的婚礼', value: 33492},
+      { name: '念念相忘', value: 34385},
+      { name: '我爱你', value: 44782},
+      { name: '倩女幽魂', value: 69457},
+      { name: '霸王别姬', value: 69374},
+      { name: '梁祝', value: 21038}
+    ],
+    [
+      { name: '志愿军：雄兵出击', value: 36357},
+      { name: '长津湖', value:25287},
+      { name: '狙击手', value: 24567}
+    ]
+  ];
+
+  var option2 = {
+    title: [
+      { text: '同类型电影销量占比图'},
+      { subtext: '动作', left: '10%', top: '4%', textAlign: 'center' },
+      { subtext: '喜剧', left: '10%', top: '16%', textAlign: 'center' },
+      { subtext: '恐怖', left: '10%', top: '27%', textAlign: 'center' },
+      { subtext: '悬疑', left: '10%', top: '40%', textAlign: 'center' },
+      { subtext: '惊悚', left: '10%', top: '51%', textAlign: 'center' },
+      { subtext: '科幻', left: '10%', top: '64%', textAlign: 'center' },
+      { subtext: '爱情', left: '10%', top: '75%', textAlign: 'center' },
+      { subtext: '战争', left: '10%', top: '88%', textAlign: 'center' }
+    ],
+    //工具箱
+    toolbox: {
+      show: true,
+      orient: "vertical",
+      left: "right",
+      feature: {
+        saveAsImage: { show: true },  // 保存图表
+      },
+    },
+    series: datas.map(function (data, idx) {
+      var top = (idx-1) * 12;
+      return {
+        type: 'pie',
+        radius: [20, 60],
+        top: top + '%',
+        height: '33.33%',
+        left: 'center',
+        itemStyle: {
+          borderColor: '#fff',
+          borderWidth: 1
+        },
+        label: {
+          alignTo: 'edge',
+          formatter: '{name|{b}}\n',
+          minMargin: 5,
+          edgeDistance: 10,
+          lineHeight: 15,
+          rich: {
+            time: {
+              fontSize: 10,
+              color: '#999'
+            }
+          }
+        },
+        labelLine: {
+          length: 15,
+          maxSurfaceAngle: 80
+        },
+        labelLayout: function (params) {
+          const isLeft = params.labelRect.x < myChart2.getWidth() / 2;
+          const points = params.labelLinePoints;
+          // Update the end point.
+          points[2][0] = isLeft ? params.labelRect.x : params.labelRect.x + params.labelRect.width;
+          return {
+            labelLinePoints: points
+          };
+        },//如果标签位于图表的一半的左侧，则与标签的左边界对齐；否则，与标签的右边界对齐。
+        data: data
+      };
+    })
+  };
+
+
+  // 使用刚指定的配置项和数据显示图表。
+  myChart1.setOption(option1);
+  myChart2.setOption(option2);
+</script>
+</center>
+</body>
+</html>

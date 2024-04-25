@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>添加电影</title>
+  <meta charset="UTF-8">
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <style>a:hover{color: orangered!important}
+  [type=file] {
+    color: #333;
+  }</style>
+</head>
+<body>
+<center>
+  <div id="top" th:insert="admintop.html"/>
+  <FORM action="/admin/saveMovie" method="post" enctype="multipart/form-data">
+    <table style="width:995px;background-color:white;padding: 20px;margin: 3px 0px">
+      <tr>
+        <td><a href="/admin/movieIndex" style="color:#333;text-decoration:none;">返回</a></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center;padding-bottom: 20px;color: #333;font-size: 24px">添 加 电 影</td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal;">编号：</td>
+        <td><input type=text name="id" SIZE=18></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">名称：</td>
+        <td><input type=text name="name" SIZE=18 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">类别：</td>
+        <td><select name="type">
+          <option th:each="type:${types}" th:value="${type}" th:text="${type}"></option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">地区：</td>
+        </td>
+        <td><select name="area">
+          <option th:each="area:${areas}" th:value="${area}" th:text="${area}"></option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">题材：</td>
+        <td><select name="genre">
+          <option th:each="genre:${genres}" th:value="${genre}" th:text="${genre}"></option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">是否为VIP电影：</td>
+        <td><input type="radio" value="1" name="isvip" checked="checked"><font color="#333" size="2">是 </font>
+          <input type="radio" value="0" name="isvip" ><font color="#333" size="2">否</font></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">主演：</td>
+        <td><input type=text name="actor" size="40" ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">简介：</td>
+        <td width="700px"><TextArea name="detail" Rows="5" SIZE="18" Cols="80" ></TextArea></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">总热度：</td>
+        <td><input type=text name="hotrank" SIZE=18></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">好评度：</td>
+        <td><input type=text name="goodrank" SIZE=18 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">周热度：</td>
+        <td><input type=text name="weekrank" SIZE=18 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">月热度：</td>
+        <td><input type=text name="monthrank" SIZE=18 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">销量：</td>
+        <td><input type=text name="clickrate" SIZE=18 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:right;color:#333;font-size:14px;font-weight: normal">图片：</td>
+        <td><input type="file" name="picture" size="24" color="#333"> </td>
+      </tr>
+      <tr>
+        <td colspan=2 style="text-align:center;padding: 20px"><INPUT type="submit" name="s" value="  提 交  "></td>
+      </tr>
+
+    </table>
+  </FORM>
+</center>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿<head>
+    <style>
+        .returnButton,.adminLogOutButton{
+            width: 36px;
+            height: 20px;
+            background-color: #fffc99;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<center>
+<!--<div th:insert="header.html"></div>-->
+<table width=999px border=0 style="margin-top: 50px">
+  <tr style="position: relative">
+    <td rowspan=2 style="width: 360px"><img th:src="@{/image/logo.jpg}"> </td>
+      <td style="float: right">
+<!--         <p th:if="${session.adminLogin}">-->
+<!--             <button class="returnButton"><a th:href="@{/index}" style="font-size:x-small;text-decoration:none;color: black;text-align: center">返回</a></button>-->
+<!--             <button class="adminLogOutButton"><a th:href="@{/admin/logOut}" style="font-size:x-small;text-decoration:none;color: black;text-align: center">退出</a></button>-->
+<!--         </p>-->
+<!--          <p th:unless="${session.adminLogin}">-->
+              <button class="returnButton"><a th:href="@{/index}" style="font-size:x-small;text-decoration:none;color: black;text-align: center">返回</a></button>
+<!--          </p>-->
+      </td>
+<!--<td style="font-size:x-small;"></td>-->
+<!--<td style="background:url('/image/topxmenubg.jpg'); font-size:x-small;text-align:center;">-->
+<!--    <p th:if="${session.admin}"><a th:href="@{/admin/adminLogOut}" style="text-decoration:none;">退出</a>&nbsp;</p>-->
+<!--    <p th:unless="${session.admin}"><a th:href="@{/admin/toAdminLogin}" style="text-decoration:none;">登录</a>&nbsp;</p>-->
+<!--</td>-->
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr style="background-color: #1c7887 ;text-align: center;line-height: 40px"><td colspan=3 style="align-content: center">
+    <a href="/admin/movieIndex" p style="text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">电影管理</span></a>
+    &nbsp;&nbsp;&nbsp; <span style=" color:White;"> |</span> &nbsp;&nbsp;&nbsp;
+    <a href="/admin/movieAdd" p style="text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">添加电影</span></a>
+    &nbsp;&nbsp;&nbsp; <span style=" color:White;"> |</span>&nbsp;&nbsp;&nbsp;
+    <a href="/admin/dataOut"  style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">数据导出</span></a>
+    &nbsp;&nbsp;&nbsp;<span style=" color:White;"> |</span>&nbsp;&nbsp;&nbsp;
+    <a href="/admin/graphdraw" style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">绘制图表</span></a>
+</td>
+</tr>
+
+</td>
+</tr>
+</table></center>

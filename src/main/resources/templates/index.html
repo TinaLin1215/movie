@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>主页</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="/css/prodList.css" rel="stylesheet" type="text/css">
+	<link href="/css/background.css" rel="stylesheet" type="text/css">
+	<script src="/js/jquery-1.4.2.js"></script>
+<!--	<script type="text/javascript" src="/js/jquery-1.4.2.js" charset="utf-8"></script>-->
+	<script type="text/javascript">
+		$(function (){
+			var index=0;
+			var f;
+			function dsq(){
+				f=setInterval(function (){
+					if(index==$(".boximg").length-1)index=0;
+					else index++;
+					$(".boximg").css("opacity","0");
+					$(".boximg").eq(index).css("opacity","1");
+					$(".button_li").css("background","#333");
+					$(".button_li").eq(index).css("background","#fff");
+				},4000)
+				updateImageLink();
+			}
+			dsq();
+			$(".arrowLeft").click(function (){
+				clearInterval(f);
+				if(index==0)index=$(".boximg").length-1;
+				else index--;
+				$(".boximg").css("opacity","0");
+				$(".boximg").eq(index).css("opacity","1");
+				$(".button_li").css("background","#333");
+				$(".button_li").eq(index).css("background","#fff");
+				dsq();
+			})
+			$(".arrowRight").click(function (){
+				clearInterval(f);
+				if(index==$(".boximg").length-1)index=0;
+				else index++;
+				$(".boximg").css("opacity","0");
+				$(".boximg").eq(index).css("opacity","1");
+				$(".button_li").css("background","#333");
+				$(".button_li").eq(index).css("background","#fff");
+				dsq();
+			})
+			$(".button_li").click(function (){
+				clearInterval(f);
+				index=$(this).index();
+				$(".boximg").css("opacity","0");
+				$(".boximg").eq(index).css("opacity","1");
+				$(".button_li").css("background","#333");
+				$(".button_li").eq(index).css("background","#fff");
+				dsq();
+			})
+			function updateImageLink() {
+				if(index==0)
+					$(".boximg").eq($(".boximg").length-1).find('a').attr('href', '/movie?id=31');
+				if(index==1)
+					$(".boximg").eq($(".boximg").length-1).find('a').attr('href', '/movie?id=1');
+				if(index==2)
+					$(".boximg").eq($(".boximg").length-1).find('a').attr('href', '/movie?id=10');
+				if(index==3)
+					$(".boximg").eq($(".boximg").length-1).find('a').attr('href', '/movie?id=19');
+			
+			}
+		})
+		function failHref(){
+			alert("本电影为会员用户专享！")
+			return;
+		}
+	</script>
+	<style>
+		body{
+			margin: 8px;
+		}
+		.box{
+			width: 960px;
+			position: relative;
+		}
+		.boximg{
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			transition: all 1.5s;
+		}
+		.boximg:nth-child(1){
+			opacity: 1;
+		}
+		.arrowLeft{left: 5px;}
+		.arrowRight{right: 5px;}
+		.arrowLeft,.arrowRight{
+			position: absolute;
+			width: 30px;
+			height: 50px;
+			line-height: 50px;
+			color: #333;
+			top:250px;
+			text-align: center;
+			font-size: 28px;
+			font-weight: bold;
+		}
+		.arrowLeft:hover,.arrowRight:hover{
+			color:#fff;
+		}
+		.button_ul,.button_li{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		.button_ul{
+			position: absolute;
+			/*bottom: -350px;*/
+			/*left: 270px;*/
+			bottom: -530px;
+			left: 440px;
+		}
+		.button_li{
+			width: 10px;
+			height: 10px;
+			border-radius: 100%;
+			background: #333;
+			margin: 0 5px;
+			display: inline-block;
+			transition: all 1.5s;
+		}
+		.button_li:nth-child(1){
+			background-color: #fff;
+		}
+		.movie_box{
+			width: 960px;
+			position: relative;
+			top:572px;
+		}
+		.recommendation {
+			position: absolute;
+			left: 0px;
+			bottom: -30px; /* 根据需要调整位置 */
+			color: white;
+			font-size: 30px;
+		}
+
+
+		#prod_content{
+			width:999px;
+			position: relative;
+			top: 600px;
+		}
+		#prod_content .prod_div{
+			width: 186px;
+			height: 248px;
+			margin-top: 28px;
+			margin-left: 30px;
+			margin-bottom: 40px;
+			margin-right: 30px;
+			float: left;
+
+		}
+
+		#prod_content .prod_div:nth-child(4),#prod_content .prod_div:nth-child(8),
+		#prod_content .prod_div:nth-child(12),#prod_content .prod_div:nth-child(16),
+		#prod_content .prod_div:nth-child(20),#prod_content .prod_div:nth-child(24),
+		#prod_content .prod_div:nth-child(28),#prod_content .prod_div:nth-child(32),
+		#prod_content .prod_div:nth-child(36),#prod_content .prod_div:nth-child(40),
+		#prod_content .prod_div:nth-child(44),#prod_content .prod_div:nth-child(48),
+		#prod_content .prod_div:nth-child(52),#prod_content .prod_div:nth-child(56){
+			margin-right:0px;
+		}
+
+		#prod_content .prod_div img{
+			height: 186px;
+			width: 248px;
+			width:100%;
+			height:100%;
+			border-radius: 4px;
+			position: relative;
+			transition-duration: 0.3s;
+		}
+
+
+		#prod_content #prod_name_div{
+			font-size:16px;
+			margin-top:8px;
+			color:white;
+			text-align: left;
+		}
+		#prod_content #prod_name_div:hover{
+			color: #00d1d1;
+		}
+
+
+		#prod_content #sub{
+			font-size:14px;
+			margin-top:4px;
+			color: rgba(255,255,255,.4);
+			text-align: left;
+			text-overflow: ellipsis; /* 显示省略号 */
+			white-space: nowrap; /* 防止换行 */
+			overflow: hidden; /* 隐藏溢出部分 */
+			height: 19px;
+		}
+		#prod_content #sub:hover{
+			color: #00d1d1;;
+		}
+	</style>
+</head>
+<body>
+<center>
+	<div id="top" th:insert="top.html"></div>
+	<div class="box">
+		<div class="boximg"><a th:href="'/movie?id=31'"><img th:src="@{/image/111.jpg}" width="960"></a></div>
+		<div class="boximg"><a th:href="'/movie?id=1'"><img th:src="@{image/222.jpg}" width="960"></a></div>
+		<div class="boximg"><a th:href="'/movie?id=10'"><img th:src="@{/image/333.jpg}" width="960"></a></div>
+		<div class="boximg"><a th:href="'/movie?id=19'"><img th:src="@{/image/444.jpg}" width="960"></a></div>
+		<div class="arrowLeft" >&lt;</div>
+		<div class="arrowRight">&gt;</div>
+		<ul class="button_ul">
+			<li class="button_li"></li>
+			<li class="button_li"></li>
+			<li class="button_li"></li>
+			<li class="button_li"></li>
+		</ul>
+	</div>
+
+	<div class="movie_box">
+		<div class="recommendation">
+			<span>为你推荐</span>
+		</div>
+	</div>
+
+	<div id="prod_content" th:each="movie:${movielist}">
+			<div class="prod_div">
+				<a th:if="${session.vip == 1}" th:href="'/movie?id='+${movie.id}">
+					<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+					<div class="title-wrap">
+						<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+						<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+						<div id="sub" th:text="${movie.actor}"></div>
+					</div>
+				</a>
+				<a th:if="${session.vip == 0 && movie.isvip == 0}" th:href="'/movie?id='+${movie.id}">
+					<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+					<div class="title-wrap">
+						<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+						<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+						<div id="sub" th:text="${movie.actor}"></div>
+					</div>
+				</a>
+				<a th:if="${session.vip == 0 && movie.isvip == 1}" onclick="failHref()">
+					<img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+					<div class="title-wrap">
+						<div th:if="${movie.isvip}" id="prod_name_div" th:text="${movie.name}+' [VIP]'"></div>
+						<div th:unless="${movie.isvip}" id="prod_name_div2" th:text="${movie.name}"></div>
+						<div id="sub" th:text="${movie.actor}"></div>
+					</div>
+				</a>
+			</div>
+	</div>
+
+	<div id="bottom" th:insert="bottom.html" style="margin-top: 1000px"></div>
+</center>
+</body>
+</html>

@@ -1,0 +1,51 @@
+.movie-class {
+    width: 999px;
+    border: 1px solid #fff;
+    margin: 0 auto;
+}
+
+.filter-radio-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    background: none; /* 移除背景 */
+    border: none; /* 移除边框 */
+
+}
+.filter-radio-wrap .item.active, .filter-radio-wrap .item.active:hover {
+    color: #00d1d1;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+
+}
+
+.filter-radio-wrap .item {
+    white-space: pre;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(255,255,255,.6);
+    margin-right: 20px;
+    cursor: pointer;
+    background: none; /* 移除背景 */
+    border: none; /* 移除边框 */
+
+}
+select{
+    width: 100px;
+    text-align: center;
+}
+.input_span {
+    margin-left: 20px;
+}
+
+* {
+    margin: 0;
+}

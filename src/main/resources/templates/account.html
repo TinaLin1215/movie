@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>我的账户</title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <link href="/css/prodList.css" rel="stylesheet" type="text/css">
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <script src="/js/jquery-1.4.2.js"></script>
+</head>
+<body>
+<center>
+  <div id="top" th:insert="top.html"></div>
+  <div>
+    <form>
+      <table style="width:550px; border-width:3px; border-style:dotted;padding: 20px;font-size: 18px">
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">ID：</td>
+          <td align=left style="width:180px;"><span th:text="${session.viewerLogin.getUserId()}"></span></td>
+        </tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">用户名：</td>
+          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span id="username" th:text="${session.viewerLogin.getUsername()}"></span></td>
+        </tr>
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">昵称：</td>
+          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span th:text="${session.viewerLogin.getNickname()}"></span></td>
+        </tr>
+<!--        <tr>-->
+<!--          <td style="text-align:right;width:150px;height:30px;">性别：</td>-->
+<!--          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span th:text="${session.viewerLogin.getSex()}"></span></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="text-align:right;width:150px;height:30px;">电话：</td>-->
+<!--          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span th:text="${session.viewerLogin.getPhone()}"></span></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="text-align:right;width:150px;height:30px;">电子邮箱：</td>-->
+<!--          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span th:text="${session.viewerLogin.getEmail()}"></span></td>-->
+<!--        </tr>-->
+        <tr>
+          <td style="text-align:right;width:150px;height:30px;">用户权限：</td>
+          <td th:if="${session.viewerLogin}" align=left style="width:180px;"><span th:text="${session.viewerLogin.getRole()}"></span></td>
+        </tr>
+
+      </table>
+    </form>
+  </div>
+</center>
+</body>
+</html>

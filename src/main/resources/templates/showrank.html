@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>排行</title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <link href="/css/prodList.css" rel="stylesheet" type="text/css">
+  <link href="/css/background.css" rel="stylesheet" type="text/css">
+  <link href="/css/showmovie.css" rel="stylesheet" type="text/css">
+  <script src="/js/jquery-1.4.2.js"></script>
+  <script>
+      function failHref(){
+          alert("本电影为会员用户专享！")
+          return;
+      }
+  </script>
+  <style type="text/css">
+    .prod_div img:hover{
+      transform: scale(1.1); /* 放大图片 */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 添加阴影效果 */
+    }
+
+    li {
+      list-style: none;
+      line-height: 28px;
+      font-size: 14px;
+        color: white;
+    }
+
+    .two p {
+      float: left;
+      margin: 7px 0px 0px;
+    }
+    .two img{
+      width: 175px;
+      height: 245px;
+      float: left;
+    }
+    .two table{
+        display: block;
+        margin: 30px 0;
+        border-bottom: 1px solid white;
+    }
+    .two td{
+      padding-left: 100px;
+        padding-bottom: 30px;
+    }
+    .query{
+        border:none;
+    }
+
+  </style>
+</head>
+<body>
+<center>
+  <div id="top" th:insert="top.html"/>
+  <div>
+
+    <div id="content">
+      <div id="movie-class" >
+        <form class="query" method="post" action="/index/showRank">
+            <span>排名： </span>
+            <select class="select" name="rank">
+                <option th:value="weekrank" th:text="周热度"></option>
+                <option th:value="monthrank" th:text="月热度"></option>
+                <option th:value="hotrank"  th:text="总热度"></option>
+                <option th:value="goodrank"  th:text="好评热度"></option>
+            </select>
+            <span class="input_span">  电影名字： <input type="text" name="name"/></span>
+            <span class="input_span">  主演姓名： <input type="text" name="actor"/></span>
+          <input type="submit" style="margin-left: 20px;" value="查 询">
+        </form>
+      </div>
+
+      <div class="two" style="margin-top: 50px">
+        <div th:each="movie,i:${ranklist}">
+
+            <table >
+              <tr>
+                  <td>
+                      <li style="font-size: 30px" th:id="((${i.index})+(${currentPage}-1)*4+1)" th:text="(${i.index}+(${currentPage}-1)*4+1)"></li>
+                  </td>
+                <td>
+                    <a th:if="${session.vip == 1}" th:href="'/movie?id='+${movie.id}">
+                        <img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+                    </a>
+
+                    <a th:if="${session.vip == 0 && movie.isvip == 0}" th:href="'/movie?id='+${movie.id}">
+                        <img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+                    </a>
+
+                    <a th:if="${session.vip == 0 && movie.isvip == 1}" onclick="failHref()">
+                        <img th:src="@{'/picture/'+${movie.picture}}" border="0"/>
+                    </a>
+<!--                    <a th:href="'/movie?id='+${movie.id}"><img th:src="@{'/picture/'+${movie.picture}}" border="0"/></a>-->
+                </td>
+                <td style="width: 300px">
+                    <li th:if="${movie.isvip}" style="font-size: 28px; line-height: 70px;margin-top: -100px;" th:text="${movie.name}+' [VIP]'"></li>
+                    <li th:unless="${movie.isvip}" style="font-size: 28px; line-height: 70px;margin-top: -100px;" th:text="${movie.name}"></li>
+                    <li style="margin-top: 30px" th:text="'主演： '+${movie.actor}"></li>
+                    <li th:text="${movie.area}+' / '+${movie.type}+' '+${movie.genre}"></li>
+                </td>
+                  <td>
+                      <li style="margin-top: -50px" th:text="'销量： '"></li>
+                      <li style="font-size: 28px" th:text="${movie.clickrate}"></li>
+                  </td>
+              </tr>
+            </table>
+          </a>
+
+        </div>
+      </div>
+
+
+<!--      <div id="prod_content">-->
+<!--        <div th:each="movie:${ranklist}">-->
+<!--          <div class="prod_div">-->
+<!--            <a th:href="'/index/moviedetail?flowerid='+${movie.id}">-->
+<!--              <img th:src="@{'/picture/'+${movie.picture}}" border="0"/>-->
+<!--              <div class="title-wrap">-->
+<!--                <div id="prod_name_div" th:text="${movie.name}"></div>-->
+<!--                <div id="sub" th:text="${movie.actor}"></div>-->
+<!--              </div>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <!--分页超链接 -->
+      <div style="clear: both"></div>
+      <div style="clear: both">
+        <br/><br/>
+        <span><a  class="page" th:href="@{/index/showRank(pageNo=1,name=${name},actor=${actor})}">首页</a></span>&nbsp;&nbsp;
+        <span th:switch="${currentPage}">
+					<a class="page"  th:case="1" th:href="@{/index/showRank(pageNo=${currentPage},name=${name},actor=${actor})}">上一页</a>&nbsp;&nbsp;
+					<a class="page"  th:case="*" th:href="@{/index/showRank(pageNo=${currentPage - 1},name=${name},actor=${actor})}">上一页</a>
+				</span>
+        <span th:if="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/index/showRank(pageNo=${pageCount},name=${name},actor=${actor})}">下一页</a>&nbsp;&nbsp;
+			</span>
+        <span class="page"  th:unless="${currentPage}==${pageCount}">
+				<a class="page"  th:href="@{/index/showRank(pageNo=${currentPage + 1},name=${name},actor=${actor})}">下一页</a>
+			</span>
+        <span>&nbsp;&nbsp;<a class="page"  th:href="@{/index/showRank(pageNo=${pageCount},name=${name},actor=${actor})}">尾页</a></span>
+        <br/><br/>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div id="bottom" th:insert="bottom.html"/></div>
+
+</center>
+</body>
+</html>

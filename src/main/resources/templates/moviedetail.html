@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>电影详情</title>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <link href="/css/background.css" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #movie-details-container {
+            max-width: 800px;
+            margin: 0 auto; /* 居中显示 */
+            overflow: hidden; /* 清除浮动 */
+        }
+
+        #movie-picture {
+            float: left; /* 图片浮动在左侧 */
+            margin-top: 20px; /* 调整图片上边距，根据需要调整 */
+        }
+
+        #movie-details {
+            width: 400px;
+            float: right; /* 电影详情浮动在左侧 */
+            margin-left: 10px; /* 调整电影详情部分距离图片的左边距，根据需要调整 */
+        }
+
+        #movie-details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #movie-details td {
+            border: 1px solid #333;
+            padding: 5px;
+            width: 150px; /* 调整列的宽度，根据需要调整 */
+        }
+
+        /*#movie-details td:first-child {*/
+        /*    width: 100px; !* 调整第一列的宽度，根据需要调整 *!*/
+        /*}*/
+
+        #movie-details td span {
+            font-size: 14px; /* 调整文本字体大小，根据需要调整 */
+        }
+    </style>
+</head>
+<body>
+<center>
+
+    <div id="top" th:insert="top.html"/>
+    <div>
+
+        <div id="movie-details-container">
+
+            <img id="movie-picture" width="300px" th:src="'data:image/jpeg;base64,' + ${movie.picture}" alt="Movie Picture"/>
+
+            <div id="movie-details">
+                <h2 th:text="${movie.name}"></h2>
+
+                <table>
+                    <tr>
+                        <td id="movie-introduction"><span th:text="${'简介：'+movie.detail}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'类型：'+movie.type}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'地区：'+movie.area}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'题材：'+movie.genre}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'主创演员：'+movie.actor}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'总热度：'+movie.hotrank}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'周热度：'+movie.weekrank}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'月热度：'+movie.monthrank}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'好评度：'+movie.goodrank}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span th:text="${'销量：'+movie.clickrate}"></span></td>
+                    </tr>
+
+                    <!-- 其他电影信息 -->
+                </table>
+
+            </div>
+        </div>
+        <audio controls="controls" style="float:left;margin-left: 350px" src="../"> </audio>
+        <div id="bottom" th:insert="bottom.html" style="margin-top: 20px;"></div>
+    </div>
+</center>
+</body>
+</html>
